@@ -19,4 +19,8 @@ public class MagictheGathering
 		System.out.println("Name: " + this.name + "\nCost: " + this.cost + "\nAttack: " + this.attack + " Defense: " + this.defense);
 		System.out.format("Name: %s\n Cost: %d Attack: %d Defense: %d \n", this.name, this.cost, this.attack, this.defense);
 	}
+
+	public void setName(String string) {
+		
+	}
 }

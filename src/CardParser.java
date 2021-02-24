@@ -6,16 +6,20 @@ import org.json.simple.JSONValue;
 public class CardParser 
 {
 	private String urlString;
+	private ArrayList<HearthstoneCard> theMinions;
 	
 	public CardParser(String urlString)
 	{
+		//initial fields
 		this.urlString = urlString;
+		theMinions = new ArrayList<HearthstoneCard>();
 		
-		URLReader MagictheGatheringURLReader = new URLReader(this.urlString);
-		Object obj = JSONValue.parse(MagictheGatheringURLReader.getTheURLContents());
+		URLReader hearthstoneURLReader = new URLReader(this.urlString);
+		Object obj = JSONValue.parse(hearthstoneURLReader.getTheURLContents());
 		
 	    if(obj instanceof JSONArray)
 	    {
+	    	//I am only in here if obj IS a JSONArray
 	    	JSONArray array = (JSONArray)obj;
 	    	
 		    for(int i = 0; i < array.size(); i++)
@@ -25,17 +29,27 @@ public class CardParser
 		    	{
 		    		if(cardData.containsKey("type") && cardData.get("type").equals("MINION"))
 		    		{
+		    			//I am only here if this is a minion card!!!
 		    			System.out.println(cardData.keySet().toString());
 		    			String name = (String)cardData.get("name");
 		    			int cost = Integer.parseInt(cardData.get("cost").toString());
 		    			int attack = Integer.parseInt(cardData.get("attack").toString());
 		    			int health = Integer.parseInt(cardData.get("health").toString());
-		    			MagictheGathering temp = new MagictheGathering(name, cost, attack, health);
+		    			HearthstoneCard temp = new HearthstoneCard(name, cost, attack, health);
+		    			theMinions.add(temp);
 		    		}
 		    	}
 		    	
 		    }
 	    }
+	}
+	
+	public void showMinions()
+	{
+		for(int i = 0; i < this.theMinions.size(); i++)
+		{
+			this.theMinions.get(i).display();
+		}
 	}
 	
 	public void sortLowestCostToHighestCost()

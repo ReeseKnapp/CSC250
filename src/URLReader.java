@@ -9,7 +9,7 @@ public class URLReader
 	public URLReader(String urlString)
 	{
 		this.urlString = urlString;
-		this.theURLContents = "https://github.com/mlitman/CSC250_Spring2021_HearthstoneDeckTracker";
+		this.theURLContents = "";
 		
 		//get the contents of that URL and fill theURLContents
 		this.readFromURL();

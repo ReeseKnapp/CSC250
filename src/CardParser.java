@@ -29,7 +29,7 @@ public class CardParser
 		    	{
 		    		if(cardData.containsKey("type") && cardData.get("type").equals("MINION"))
 		    		{
-		    			//I am only here if this is a minion card!!!
+		    			//I am only here is this is a minion card!!!
 		    			System.out.println(cardData.keySet().toString());
 		    			String name = (String)cardData.get("name");
 		    			int cost = Integer.parseInt(cardData.get("cost").toString());

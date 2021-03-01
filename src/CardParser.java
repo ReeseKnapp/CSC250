@@ -10,7 +10,6 @@ public class CardParser
 	
 	public CardParser(String urlString)
 	{
-		//initial fields
 		this.urlString = urlString;
 		theMinions = new ArrayList<HearthstoneCard>();
 		
@@ -19,7 +18,6 @@ public class CardParser
 		
 	    if(obj instanceof JSONArray)
 	    {
-	    	//I am only in here if obj IS a JSONArray
 	    	JSONArray array = (JSONArray)obj;
 	    	
 		    for(int i = 0; i < array.size(); i++)
@@ -29,7 +27,6 @@ public class CardParser
 		    	{
 		    		if(cardData.containsKey("type") && cardData.get("type").equals("MINION"))
 		    		{
-		    			//I am only here is this is a minion card!!!
 		    			System.out.println(cardData.keySet().toString());
 		    			String name = (String)cardData.get("name");
 		    			int cost = Integer.parseInt(cardData.get("cost").toString());
@@ -52,14 +49,45 @@ public class CardParser
 		}
 	}
 	
+	public void insertionSortLowestToHighestCost()
+	{
+		for(int currStart = 1; currStart < this.theMinions.size(); currStart++)
+		{
+			int currIndex = currStart;
+			HearthstoneCard temp;
+			while(currIndex > 0 && this.theMinions.get(currIndex-1).getCost() < this.theMinions.get(currIndex-1).getCost())
+			
+			{
+				temp = this.theMinions.get(currIndex);
+				this.theMinions.set(currIndex, this.theMinions.get(currIndex-1));
+				this.theMinions.set(currIndex-1,  temp);
+				currIndex--;
+				
+			}
+		}
+	}
 	public void sortLowestCostToHighestCost()
 	{
-		//this methods job is to take our ArrayList of minions and re-arrange it so that
-		//it is in the order of cards with the lowest cost first, and cards with the highest
-		//cost last.
-		//Note: this.theMinions.get(3).getCost() will give you the cost of card #3
-		//Note: this.theMinions.remove(3) will remove the card that used to be at bucket 3
-		//you will need to cobble together your own algorithm for getting this arraylist sorted
+		ArrayList<HearthstoneCard> theSortedList = new ArrayList<HearthstoneCard>();
+		HearthstoneCard nextSmallest;
+		while(this.theMinions.size() > 0)
+		{
+			nextSmallest = this.findSmallest();
+			theSortedList.add(nextSmallest);
+		}
+		HearthstoneCard currWinner = this.theMinions.get(0);
+		int indexOfWinner = 0;
 		
+		for(int i = 0; i < this.theMinions.size(); i++)
+		{
+			if(this.theMinions.get(i).getCost() < currWinner.getCost())
+			{
+				currWinner = this.theMinions.get(i);
+				indexOfWinner = i;
+			}
+		}
+		this.theMinions.remove(indexOfWinner);
+		return currWinner;
 	}
+
 }

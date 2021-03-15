@@ -38,7 +38,6 @@ public class HearthstoneCard
 		return attack;
 	}
 
-	//setters allow us to conditionally change the value of a private member
 	public void setName(String name)
 	{
 		if(name.length() >= 5)
@@ -49,7 +48,6 @@ public class HearthstoneCard
 	
 	void display()
 	{
-		//System.out.println("Name: " + this.name + "\nCost" + this.cost + "\nAttack: " + this.attack + " Defense: " + this.defense);
 		System.out.format("Name: %s \nCost: %d \nAttack: %d Defense: %d\n", this.name, this.cost, this.attack,this.defense);
 	}
 }
